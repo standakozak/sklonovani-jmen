@@ -34,30 +34,42 @@ class Client:
         return strings_list
 
     def request(self, jmeno="Adelaida", pad=5, osloveni_zeny=None, osloveni_muze=None, \
-        osloveni_firmy=None, pohlavi=None, tvar=None, format=None):
+        osloveni_firmy=None, pohlavi=0, tvar=1, format=None):
         """[summary]
 
         Args:
-            jmeno (str, list, set or dict): Names to inflect. When using a string, separate
+            jmeno (str, list, set or dict): Names to inflect (česky: skloňovat). When using a string, separate
                 each name by "|". Defaults to "Adelaida".
 
             pad (int, optional): Grammatical case of inflection. Valid values 
                 are 2-7 (representing grammatical cases for nouns used in Czech) or 0.
-                Use 0 to obtain information about gender (returns "m", "f" or "mf" 
+                Use 0 to obtain information about gender (return value is "m", "f" or "mf" 
                 when the gender is arguable)
                 Defaults to 5.
             
-            osloveni_zeny ([type], optional): [description]. Defaults to None.
-            osloveni_muze ([type], optional): [description]. Defaults to None.
-            osloveni_firmy ([type], optional): [description]. Defaults to None.
-            pohlavi ([type], optional): [description]. Defaults to None.
-            tvar ([type], optional): [description]. Defaults to None.
-            format ([type], optional): [description]. Defaults to None.
+            osloveni_zeny (str, optional): Phrase to put in front of women's names. 
+                Defaults to "paní" (default values are inflicted).
+            osloveni_muze (str, optional): Phrase to put in front of men's names.
+                Defaults to "pane" (default values are inflicted).
+            osloveni_firmy (str, optional): Phrase to put in front of companies' names.
+                Defaults to "vážení".
+            pohlavi (int, optional): Gender of the name(s). Used to make results more accurate.
+                1 - man
+                2 - woman
+                0 - unknown gender
+                Defaults to 0.
+            tvar (int, optional): Number code for items the API shall return. 
+                For more information see https://sklonovani-jmen.cz/dokumentace.
+                Defaults to 1.
+            format (str, optional): Use "json" to return values in the JSON format.
+                Otherwise, list of strings will be returned. Defaults to None.
 
         Returns:
-            [list of strings]: [description]
+            [list of strings]: Values returned by the API. 
+            Can contain inflected names, gender information ("m", "f" or "mf") or error codes.
         """
 
+        # Creating the first part of url (without the "jmeno" arg)
         kwargs_dict = {
             "osloveni-zeny": osloveni_zeny,
             "osloveni-muze": osloveni_muze,
@@ -72,6 +84,7 @@ class Client:
                 url_prefix += f"&{key}={item}"
 
         
+        # Creating a list to use as "jmeno" argument in API request 
         if type(jmeno) == str:
             names_str = jmeno
         elif type(jmeno) in (list, set, dict):
@@ -79,20 +92,25 @@ class Client:
 
         names_list = self._split_long_url(names_str)
         result_list = []
+        # API request for each item in the list
         for names_str in names_list:
             url = url_prefix + f"&jmeno={names_str}"
-
             result_list += requests.get(url).text.split("|")
         return result_list
 
     def account_info(self, informace=None):
-        """[summary]
+        """
+        Get information about your account (remaining credit...). 
 
         Args:
-            informace ([type], optional): [description]. Defaults to None.
+            informace (int, optional): Code of information.
+            2 - Remaining credit
+            4 - Remaining daily credit
+            None - all information
+            Defaults to None.
 
         Returns:
-            [type]: [description]
+            [list of strings]: Obtained information from the API.
         """
         result = []
         if informace is None:
