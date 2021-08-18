@@ -35,7 +35,8 @@ class Client:
 
     def request(self, jmeno="Adelaida", pad=5, osloveni_zeny=None, osloveni_muze=None, \
         osloveni_firmy=None, pohlavi=0, tvar=1, format=None):
-        """[summary]
+        """
+        Sends request to the API to inflect names or obtain information about gender.
 
         Args:
             jmeno (str, list, set or dict): Names to inflect (česky: skloňovat). When using a string, separate
