@@ -60,7 +60,7 @@ class Client:
                 0 - unknown gender
                 Defaults to 0.
             tvar (int, optional): Number code for items the API shall return. 
-                For more information see https://sklonovani-jmen.cz/dokumentace.
+                For more information see https://www.sklonovani-jmen.cz/dokumentace.
                 Defaults to 1.
             format (str, optional): Use "json" to return values in the JSON format.
                 Otherwise, list of strings will be returned. Defaults to None.
@@ -79,7 +79,7 @@ class Client:
             "tvar": tvar,
             "format": format
         }
-        url_prefix = f"https://sklonovani-jmen.cz/api?klic={self.key}&pad={pad}"
+        url_prefix = f"https://www.sklonovani-jmen.cz/api?klic={self.key}&pad={pad}"
         for key, item in kwargs_dict.items():
             if item is not None:
                 url_prefix += f"&{key}={item}"
@@ -116,9 +116,9 @@ class Client:
         result = []
         if informace is None:
             for index in (2, 4):
-                url = f"https://sklonovani-jmen.cz/api?klic={self.key}&informace={index}"
+                url = f"https://www.sklonovani-jmen.cz/api?klic={self.key}&informace={index}"
                 result.append(requests.get(url).text)
         else:
-            url = f"https://sklonovani-jmen.cz/api?klic={self.key}&informace={informace}"
+            url = f"https://www.sklonovani-jmen.cz/api?klic={self.key}&informace={informace}"
             result.append(requests.get(url).text)
         return result
