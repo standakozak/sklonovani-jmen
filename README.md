@@ -7,7 +7,7 @@ To install this module, run
 `pip install sklonovani_jmen` in the command line.
 ## API request
 ```
-from sklonovani_jmen.main import Client 
+from sklonovani_jmen import Client 
 client = Client(YOUR_KEY) 
 client.request("Adelaida")
 ```
