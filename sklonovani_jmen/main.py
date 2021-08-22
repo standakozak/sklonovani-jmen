@@ -2,8 +2,8 @@ import requests
 
 class Client:
     def __init__(self, klic="klic"):
-        """
-        Initializes the object for sending requests to the API of https://www.sklonovani-jmen.cz.
+        """Initializes the object for sending requests to the API of
+        https://www.sklonovani-jmen.cz.
 
         Args:
             klic (str): Unique key for using the API. Defaults to "klic".
@@ -11,8 +11,7 @@ class Client:
         self.key = klic
 
     def _split_long_url(self, string_to_split):
-        """
-        Splitting strings longer than 7000
+        """Splitting strings longer than 7000
         characters (used to shorten "jmeno" argument in request method)
 
         Returns: list of strings
@@ -35,8 +34,7 @@ class Client:
 
     def request(self, jmeno="Adelaida", pad=5, osloveni_zeny=None, osloveni_muze=None, \
         osloveni_firmy=None, pohlavi=0, tvar=1, format=None):
-        """
-        Sends request to the API to inflect names or obtain information about gender.
+        """Sends a request to the API to inflect names or obtain information about gender.
 
         Args:
             jmeno (str, list, set or dict): Names to inflect (česky: skloňovat). When using a string, separate
@@ -100,8 +98,7 @@ class Client:
         return result_list
 
     def account_info(self, informace=None):
-        """
-        Get information about your account (remaining credit...). 
+        """Get information about your account (remaining credit...). 
 
         Args:
             informace (int, optional): Code of information.
