@@ -1,1 +1,1 @@
-from main import Client
+from sklonovani_jmen.main import Client
