@@ -17,3 +17,5 @@ You can find information about other arguments for this method at https://www.sk
 ```
 client.account_info(2)  # Returns information about your remaining credit
 ```
+### PyPI page
+https://pypi.org/project/sklonovani-jmen/
