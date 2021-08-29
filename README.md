@@ -1,4 +1,4 @@
-# sklonovani-jmen
+# sklonovani_jmen
 Module for using the API of www.sklonovani-jmen.cz in Python. This API is used for inflecting names in Czech grammar.
 To get your API key for using this module, sign up at https://www.sklonovani-jmen.cz/registrace.
 
